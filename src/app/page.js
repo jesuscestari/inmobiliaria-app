@@ -100,6 +100,7 @@ const Button = ({ children, variant = "primary", onClick, className = "", icon: 
   const variants = {
     primary: "bg-[#B09261] text-white hover:bg-[#967D50] h-10 px-6 py-2 uppercase text-xs", 
     secondary: "bg-stone-100 text-stone-900 hover:bg-stone-200 h-10 px-4 py-2 uppercase text-xs",
+    outline: "bg-white border border-[#B09261] text-[#B09261] hover:bg-[#B09261]/10 h-10 px-4 py-2 uppercase text-xs",
     ghost: "hover:bg-stone-100 text-stone-700 h-10 px-4 uppercase text-xs",
     icon: "h-10 w-10 hover:bg-stone-100 text-stone-700"
   };
@@ -248,6 +249,12 @@ const LoginView = ({ onLogin }) => {
       <div className="flex-1 flex items-center justify-center p-6 md:p-12 bg-white">
         <div className="w-full max-w-sm space-y-10">
           <div className="text-center md:text-left">
+            {/* Logo visible solo en móviles */}
+            <div className="flex justify-center mb-6 md:hidden">
+              <div className="h-16 w-16 border-2 border-[#B09261] rounded-full flex items-center justify-center bg-white">
+                <img src="/logo.png" alt="Conterra Logo" className="h-10 w-10 object-contain" />
+              </div>
+            </div>
             <h1 className="text-3xl font-light text-[#2D2A26]">Acceso Clientes</h1>
             <p className="text-[#B09261] mt-2 font-medium">Portal de Propietarios</p>
           </div>
@@ -295,17 +302,17 @@ const DashboardView = ({ user }) => {
             <MapPin className="h-4 w-4 mr-1 text-[#B09261]" /> {user.proyecto}
           </p>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center space-y-3 md:space-y-0 md:space-x-3">
         <Button 
-            variant="secondary" 
+            variant="outline" 
             onClick={() => setShowNewsletter(true)}
-            className="border border-[#B09261]/30 text-[#B09261] bg-white hover:bg-[#B09261]/10"
+            className="w-full md:w-auto"
+            icon={Mail}
           >
-            <Mail className="h-4 w-4 mr-2" />
-            Ver Ejemplo Newsletter
+            Ver Newsletter
           </Button>
-          <Button variant="secondary" icon={FileText}>Documentación</Button>
-          <Button variant="primary" icon={Download}>Cupón de Pago</Button>
+          <Button variant="outline" icon={FileText} className="w-full md:w-auto">Documentación</Button>
+          <Button variant="primary" icon={Download} className="w-full md:w-auto">Cupón de Pago</Button>
         </div>
       </div>
 
