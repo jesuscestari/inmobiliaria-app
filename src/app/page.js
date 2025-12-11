@@ -12,6 +12,7 @@ import {
   TreeDeciduous, 
   CheckCircle2,
   Clock,
+  Mail,
   Download,
   Menu,
   Sparkles,
@@ -62,14 +63,15 @@ const TIMELINE_UPDATES = [
 
 // --- COMPONENTS ---
 
-const WhatsAppIcon = ({ className = "" }) => (
+const ChatBotIcon = ({ className = "" }) => (
   <svg 
     className={className}
     viewBox="0 0 24 24" 
     fill="currentColor" 
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-11 8.5c0 .83-.67 1.5-1.5 1.5S6 11.33 6 10.5 6.67 9 7.5 9 9 9.67 9 10.5zm6 0c0 .83-.67 1.5-1.5 1.5S12 11.33 12 10.5 12.67 9 13.5 9 15 9.67 15 10.5zm-3 4.5h-2c-.55 0-1-.45-1-1s.45-1 1-1h2c.55 0 1 .45 1 1s-.45 1-1 1z"/>
+    <path d="M12 6c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z" opacity="0.8"/>
   </svg>
 );
 
@@ -107,6 +109,98 @@ const Button = ({ children, variant = "primary", onClick, className = "", icon: 
       {Icon && <Icon className="mr-2 h-4 w-4" />}
       {children}
     </button>
+  );
+};
+
+// --- NEWSLETTER PREVIEW COMPONENT ---
+
+const NewsletterModal = ({ onClose }) => {
+  return (
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4 animate-in fade-in duration-200">
+      <div className="bg-white w-full max-w-2xl h-[85vh] overflow-hidden rounded-xl shadow-2xl flex flex-col font-sans relative">
+        
+        {/* Mock Email Client Header */}
+        <div className="bg-stone-100 border-b border-stone-200 p-3 sm:p-4 flex items-center justify-between shrink-0">
+           <div className="space-y-1 overflow-hidden">
+             <h3 className="font-bold text-stone-800 text-xs sm:text-sm truncate">Asunto: 🏗️ Avance Octubre 2025 - Praderas de Cardales III</h3>
+             <p className="text-[10px] sm:text-xs text-stone-500 truncate">De: <span className="text-stone-700 font-medium">Conterra Desarrollos</span> &lt;novedades@conterra.com&gt;</p>
+           </div>
+           <button onClick={onClose} className="p-2 hover:bg-stone-200 rounded-full text-stone-500 transition-colors">
+             <X className="h-5 w-5" />
+           </button>
+        </div>
+        
+        {/* Email Body (Scrollable Container) */}
+        <div className="flex-1 overflow-y-auto bg-[#F2F2F2] p-4 sm:p-8">
+            {/* The Actual Email Design */}
+            <div className="max-w-[600px] mx-auto bg-white shadow-lg border border-stone-100 mx-auto">
+                
+                {/* Email Header */}
+                <div className="bg-[#2D2A26] p-8 text-center border-b-4 border-[#B09261]">
+                    <div className="inline-block border border-[#B09261] p-2 rounded-full mb-3 bg-[#2D2A26]">
+                       <img src="/logo.png" alt="Conterra Logo" className="h-8 w-8 object-contain" />
+                    </div>
+                    <h1 className="text-2xl text-white font-light tracking-[0.2em] leading-none">CONTERRA</h1>
+                    <p className="text-[9px] text-[#B09261] uppercase tracking-[0.4em] font-bold mt-2">Informe Mensual</p>
+                </div>
+
+                {/* Email Content */}
+                <div className="p-8 space-y-6 text-stone-600 font-serif">
+                    <p className="text-lg text-stone-800">Hola <strong>Carlos</strong>,</p>
+                    <p className="leading-relaxed font-sans text-sm">
+                      Queremos que seas parte de cada paso. Este mes, hemos logrado avances significativos en la infraestructura de <strong>Praderas de Cardales III</strong>, acercándonos cada vez más a la entrega de tu lote.
+                    </p>
+                    
+                    {/* Featured Image inside Email */}
+                    <div className="relative h-48 rounded-sm overflow-hidden mb-6 shadow-sm">
+                        <img src="/image.webp" className="w-full h-full object-cover" alt="Avance de obra" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-4">
+                            <span className="text-white font-sans text-sm font-medium tracking-wide">Nuevo SUM y Área Deportiva Finalizados</span>
+                        </div>
+                    </div>
+
+                    {/* Highlights Box */}
+                    <div className="bg-stone-50 p-6 border-l-2 border-[#B09261]">
+                        <h3 className="text-xs font-bold text-[#2D2A26] uppercase tracking-widest mb-4 font-sans">Lo destacado de Octubre</h3>
+                        <ul className="space-y-3 font-sans text-sm">
+                             <li className="flex items-start">
+                                <CheckCircle2 className="h-4 w-4 text-[#B09261] mr-3 mt-0.5 shrink-0" />
+                                <span><strong className="text-stone-700">Infraestructura Social:</strong> SUM y Parrillas al 100%.</span>
+                             </li>
+                             <li className="flex items-start">
+                                <CheckCircle2 className="h-4 w-4 text-[#B09261] mr-3 mt-0.5 shrink-0" />
+                                <span><strong className="text-stone-700">Energía:</strong> Tendido eléctrico subterráneo etapa 2 finalizado.</span>
+                             </li>
+                             <li className="flex items-start">
+                                <CheckCircle2 className="h-4 w-4 text-[#B09261] mr-3 mt-0.5 shrink-0" />
+                                <span><strong className="text-stone-700">Paisajismo:</strong> Inicio de forestación en bulevar central.</span>
+                             </li>
+                        </ul>
+                    </div>
+
+                    {/* CTA Section */}
+                    <div className="text-center pt-4 pb-2 border-t border-stone-100 font-sans">
+                        <p className="mb-5 text-xs text-stone-500">Para ver la galería de fotos completa, documentos técnicos y estado de cuenta:</p>
+                        <button className="bg-[#B09261] text-white px-8 py-3 uppercase text-[11px] font-bold tracking-[0.15em] hover:bg-[#967D50] transition-colors rounded-sm shadow-md">
+                            Ingresar a Mi Portal
+                        </button>
+                    </div>
+                </div>
+
+                {/* Email Footer */}
+                <div className="bg-stone-100 p-6 text-center text-[10px] text-stone-400 border-t border-stone-200 font-sans uppercase tracking-wide">
+                    <p className="mb-2">© 2025 Conterra Desarrollos Inmobiliarios.</p>
+                    <p>Av. Libertador 1234, Buenos Aires.</p>
+                    <div className="mt-4 flex justify-center space-x-4 text-[#B09261]/80 normal-case tracking-normal">
+                        <span className="cursor-pointer hover:underline">Preferencias de envío</span>
+                        <span>•</span>
+                        <span className="cursor-pointer hover:underline">Contacto</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -186,8 +280,13 @@ const LoginView = ({ onLogin }) => {
 };
 
 const DashboardView = ({ user }) => {
+  const [showNewsletter, setShowNewsletter] = useState(false);
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10 bg-[#F5F5F0] min-h-screen">
+
+        {/* Modal Overlay for Newsletter */}
+        {showNewsletter && <NewsletterModal onClose={() => setShowNewsletter(false)} />}
+
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-stone-200 pb-6">
         <div>
@@ -197,6 +296,14 @@ const DashboardView = ({ user }) => {
           </p>
         </div>
         <div className="flex items-center space-x-3">
+        <Button 
+            variant="secondary" 
+            onClick={() => setShowNewsletter(true)}
+            className="border border-[#B09261]/30 text-[#B09261] bg-white hover:bg-[#B09261]/10"
+          >
+            <Mail className="h-4 w-4 mr-2" />
+            Ver Ejemplo Newsletter
+          </Button>
           <Button variant="secondary" icon={FileText}>Documentación</Button>
           <Button variant="primary" icon={Download}>Cupón de Pago</Button>
         </div>
@@ -473,7 +580,7 @@ const ChatWidget = () => {
         {isOpen ? (
           <X className="h-6 w-6 text-[#B09261]" />
         ) : (
-          <WhatsAppIcon className="h-7 w-7 text-[#B09261]" />
+          <ChatBotIcon className="h-7 w-7 text-[#B09261]" />
         )}
       </button>
     </div>
